@@ -12,7 +12,7 @@ import { createStore, combineReducers } from '../custom/redux';
 //   }
 // }
 
-const todoReducer = (state = 5, action) => {
+const todoReducer = (state, action) => {
     switch (action.type) {
         case 'ADD_TODO':
             return {

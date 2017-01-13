@@ -1,31 +1,14 @@
 import React, { Component } from 'react';
-import { store } from '../store';
+import FilteredTodoList from './FilteredTodoList';
+import AddTodo from './AddTodo';
+import Footer from './Footer';
 
-let nextTodoId = 0;
 
-class TodoApp extends Component {
-    render() {
-        return (
-            <div>
-                <input ref={node => this.input = node} />
-                <button onClick={() => {
-                    store.dispatch({
-                        type: 'ADD_TODO',
-                        id: nextTodoId++,
-                        text: this.input.value,
-                    });
-                    this.input.value = '';
-                }}>Add Todo</button>
-                <ul>
-                    {this.props.todos.map(todo => (
-                        <li key={todo.id}>
-                            {todo.text}
-                        </li>
-                    ))}
-                </ul>
-            </div>
-        )
-    }
-}
+const TodoApp = ({store}) => 
+        <div>
+            <AddTodo {...{store}} />
+            <FilteredTodoList {...{store}} />
+            <Footer {...{store}} />
+        </div>;
 
 export default TodoApp;

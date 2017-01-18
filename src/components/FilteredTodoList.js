@@ -20,7 +20,7 @@ const getVisibleTodos = (todos, filter) => {
 
 class FilteredTodoList extends Component {
     componentDidMount() {
-        const { store } = this.props;
+        const { store } = this.context;
         this.unsubscribe = store.subscribe(() => this.forceUpdate());
     }
 
@@ -30,7 +30,7 @@ class FilteredTodoList extends Component {
 
     render() {
         const props = this.props;
-        const { store } = this.props;
+        const { store } = this.context;
         const state = store.getState();
 
         return (
@@ -46,5 +46,9 @@ class FilteredTodoList extends Component {
         );
     }
 } 
+
+FilteredTodoList.contextTypes = {
+    store: React.PropTypes.object
+};
 
 export default FilteredTodoList;

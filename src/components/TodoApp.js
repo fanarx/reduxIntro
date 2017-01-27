@@ -1,13 +1,13 @@
-import React, { Component } from 'react';
+import React from 'react';
 import FilteredTodoList from './FilteredTodoList';
 import AddTodo from './AddTodo';
 import Footer from './Footer';
 
 
-const TodoApp = () => 
+const TodoApp = ({ params }) => 
         <div>
             <AddTodo />
-            <FilteredTodoList />
+            <FilteredTodoList filter={ params.filter || 'all' } />
             <Footer />
         </div>;
 

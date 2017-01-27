@@ -1,37 +1,7 @@
 //import { createStore, combineReducers } from 'redux';
-import { createStore, combineReducers } from '../custom/redux';
+import { combineReducers } from '../custom/redux';
+import todos, * as fromTodos from './todoReducer';
 
-// export const rootReducer = (state = 0, action) => {
-//   switch (action.type) {
-//     case 'INCREMENT':
-//       return state + 1;
-//     case 'DECREMENT':
-//       return state - 1;
-//     default:
-//       return state;
-//   }
-// }
-
-const todoReducer = (state, action) => {
-    switch (action.type) {
-        case 'ADD_TODO':
-            return {
-                id: action.id,
-                text: action.text,
-                completed: false
-            };
-        case 'TOGGLE_TODO':
-            if (state.id !== action.id) {
-                    return state;
-                }
-            return {
-                ...state,
-                completed: !state.completed
-            }
-        default:
-            return state;
-    }
-}
 
 const visibilityFilterReducer = (state = 'SHOW_ALL', action) => {
     switch (action.type) {
@@ -42,21 +12,6 @@ const visibilityFilterReducer = (state = 'SHOW_ALL', action) => {
     }
 };
 
-const todosReducer = (state = [], action) => {
-    switch (action.type) {
-        case 'ADD_TODO':
-            return [
-                ...state,
-                todoReducer(undefined, action)
-            ];
-        case 'TOGGLE_TODO':
-            return state.map(todo => todoReducer(todo, action));
-        default: 
-            return state;
-    }
-};
-
-let todos = todosReducer;
 let visibilityFilter = visibilityFilterReducer;
 
 /******************Combine Reducers*******************
@@ -74,6 +29,8 @@ const rootAppReducer = combineReducers({
 });
 
 export default rootAppReducer;
+
+export const getVisibleTodos = (state, filter) => fromTodos.getVisibleTodos(state.todos, filter);
 
 
 // let arr = [{ id: 1, completed: false }, { id: 2, completed: true }, { id: 3, completed: false }];
